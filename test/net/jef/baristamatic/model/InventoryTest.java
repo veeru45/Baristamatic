@@ -46,17 +46,18 @@ public class InventoryTest {
         assertTrue(inventory.ingredientAvailable(ing1, 10));
     }
 
-    @Test
-    public void testInvalidIngredientAvailable() {
-        Ingredient ing2 = new Ingredient("invalid ing", 25);
-        assertFalse(inventory.ingredientAvailable(ing2, 1));
-    }
-
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testInvalidIngredientDecrease() {
         Ingredient ing2 = new Ingredient("invalid ing", 25);
-        // make sure it doesn't throw exception
+        // make sure it throws exception
         inventory.decreaseIngredient(ing2, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidIngredientAvailability() {
+        Ingredient ing2 = new Ingredient("invalid ing", 25);
+        // make sure it throws exception
+        inventory.ingredientAvailable(ing2, 1);
     }
 
     @Test
