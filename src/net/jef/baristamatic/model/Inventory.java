@@ -30,16 +30,19 @@ public class Inventory implements Iterable<InventoryItem> {
     public boolean ingredientAvailable(Ingredient ingredient, int amount) {
         InventoryItem item = inventoryItemByIngredient(ingredient);
         if (item == null) {
-            return false;
+            throw new IllegalArgumentException("Attempting to check availability on ingredient not in inventory: "
+                    + ingredient.getName());
         }
         return item.getOnhand() >= amount;
     }
 
     public void decreaseIngredient(Ingredient ingredient, int amount) {
         InventoryItem item = inventoryItemByIngredient(ingredient);
-        if (item != null) {
-            item.decreaseStock(amount);
+        if (item == null) {
+            throw new IllegalArgumentException("Attempting to decrease stock on ingredient not in inventory: "
+                + ingredient.getName());
         }
+        item.decreaseStock(amount);
     }
 
     public void restockAll() {
