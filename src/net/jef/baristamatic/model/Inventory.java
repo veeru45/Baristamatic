@@ -30,6 +30,8 @@ public class Inventory implements Iterable<InventoryItem> {
     public boolean ingredientAvailable(Ingredient ingredient, int amount) {
         InventoryItem item = inventoryItemByIngredient(ingredient);
         if (item == null) {
+            // Because products and inventory are created using the same set of ingredients, this shouldn't
+            // be possible.  Consider this a programming error and throw unchecked exception.
             throw new IllegalArgumentException("Attempting to check availability on ingredient not in inventory: "
                     + ingredient.getName());
         }
@@ -39,6 +41,8 @@ public class Inventory implements Iterable<InventoryItem> {
     public void decreaseIngredient(Ingredient ingredient, int amount) {
         InventoryItem item = inventoryItemByIngredient(ingredient);
         if (item == null) {
+            // Because products and inventory are created using the same set of ingredients, this shouldn't
+            // be possible.  Consider this a programming error and throw unchecked exception.
             throw new IllegalArgumentException("Attempting to decrease stock on ingredient not in inventory: "
                 + ingredient.getName());
         }
